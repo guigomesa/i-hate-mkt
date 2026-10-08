@@ -12,7 +12,7 @@ A troca acontece no navegador, via `history.replaceState`, antes de qualquer scr
 
 ## Instalação
 
-1. Baixe o `.zip` da [última release](../../releases/latest) e descompacte.
+1. Baixe o `.zip` da [última release](https://github.com/guigomesa/i-hate-mkt/releases/latest) e descompacte.
 2. Abra `chrome://extensions` e ligue o **Modo do desenvolvedor**.
 3. Clique em **Carregar sem compactação** e escolha a pasta descompactada.
 
