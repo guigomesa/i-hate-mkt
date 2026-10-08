@@ -1,0 +1,6 @@
+.claude/
+docs/superpowers/
+CLAUDE.md
+node_modules/
+*.zip
+.DS_Store

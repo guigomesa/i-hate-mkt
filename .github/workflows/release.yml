@@ -1,0 +1,39 @@
+name: release
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Test
+        run: node --test
+
+      - name: Set version from tag
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          if ! [[ "$version" =~ ^[0-9]+(\.[0-9]+){0,3}$ ]]; then
+            echo "Tag '$GITHUB_REF_NAME' must look like v1.2.3" >&2
+            exit 1
+          fi
+          jq --arg v "$version" '.version = $v' src/manifest.json > manifest.tmp
+          mv manifest.tmp src/manifest.json
+
+      - name: Package
+        run: cd src && zip -r "../i-hate-mkt-${GITHUB_REF_NAME}.zip" .
+
+      - name: Upload to release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "$GITHUB_REF_NAME" "i-hate-mkt-${GITHUB_REF_NAME}.zip" --clobber

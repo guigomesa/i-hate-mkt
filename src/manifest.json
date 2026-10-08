@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "I Hate MKT",
+  "version": "0.0.0",
+  "description": "Troca os parâmetros UTM por valores aleatórios e remove os IDs de clique antes do analytics ler a URL.",
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["rewrite.js", "content.js"],
+      "run_at": "document_start",
+      "all_frames": false
+    }
+  ]
+}
